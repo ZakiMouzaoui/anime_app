@@ -6,16 +6,17 @@ import '../constants/colors.dart';
 class KBarTheme {
   KBarTheme._();
 
-  static AppBarTheme appBarTheme = const AppBarTheme(
-      titleTextStyle: TextStyle(
+  static AppBarTheme appBarTheme = AppBarTheme(
+      titleTextStyle: const TextStyle(
         fontSize: 18,
       ),
-      backgroundColor: Color(0xff30324d),
+      elevation: 0,
+      backgroundColor: Colors.blueGrey[800],
     systemOverlayStyle: SystemUiOverlayStyle(
         statusBarColor: KColors.primary
     ),
     scrolledUnderElevation: 0,
-    iconTheme: IconThemeData(
+    iconTheme: const IconThemeData(
       color: Colors.white60
     )
   );

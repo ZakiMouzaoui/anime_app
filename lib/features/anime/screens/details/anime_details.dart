@@ -23,7 +23,6 @@ class _AnimeDetailsState extends State<AnimeDetails>
   @override
   Widget build(BuildContext context) {
     final controller = Get.put(AnimeAppBarController());
-    //final status = widget.anime["status"];
 
     final tabController = TabController(length: 4, vsync: this);
     tabController.addListener(() {

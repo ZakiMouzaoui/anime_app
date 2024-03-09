@@ -12,10 +12,8 @@ class AppTheme {
 
   static ThemeData appTheme = ThemeData(
     colorScheme: ColorScheme.fromSwatch(
-        primarySwatch: Colors.teal,
         brightness: Brightness.dark,
         backgroundColor: KColors.primary,
-        accentColor: Colors.tealAccent,
     ),
     pageTransitionsTheme: const PageTransitionsTheme(
       builders: <TargetPlatform, PageTransitionsBuilder>{

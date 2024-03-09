@@ -8,9 +8,10 @@ import '../../../../../utils/constants/colors.dart';
 
 
 class PopularCharacterCard extends StatelessWidget {
-  const PopularCharacterCard({super.key, required this.character});
+  const PopularCharacterCard({super.key, required this.character, this.showFavorites=true});
 
   final Map<String, dynamic> character;
+  final bool showFavorites;
 
   @override
   Widget build(BuildContext context) {
@@ -44,7 +45,7 @@ class PopularCharacterCard extends StatelessWidget {
               padding: EdgeInsets.symmetric(horizontal: 4.w, vertical: 4.h),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(5),
-                gradient: LinearGradient(
+                gradient: showFavorites ? LinearGradient(
                   colors: [
                     Colors.black.withOpacity(0.7),
                     Colors.transparent,
@@ -53,13 +54,17 @@ class PopularCharacterCard extends StatelessWidget {
                   ],
                   begin: Alignment.topCenter,
                   end: Alignment.bottomCenter,
-                  //stops: [0.h, 5.h, 5.h, 10.h]
+                ) : LinearGradient(colors: [
+                  Colors.black.withOpacity(0.7),
+                  Colors.transparent,
+                ], begin: Alignment.bottomCenter,
+                  end: Alignment.topCenter
                 ),
               ),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Row(
+                  if(showFavorites)Row(
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
                       Text('${character["favorites"]}', style: const TextStyle(
@@ -72,7 +77,8 @@ class PopularCharacterCard extends StatelessWidget {
                   ),
                   const Spacer(),
                   Text(character["name"], maxLines: 2, style: const TextStyle(
-                      fontWeight: FontWeight.w500
+                      fontWeight: FontWeight.w500,
+                    height: 1
                   ),
                   )
                 ],

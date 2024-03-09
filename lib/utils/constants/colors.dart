@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 
 class KColors {
   // App theme colors
-  static const Color primary = Color(0xff1a1c38);
+  //static const Color primary = Color(0xff1a1c38);
+  static Color primary = Colors.blueGrey[900]!;
   static const Color scaffoldColor = Color(0xff1a1c38);
   static const Color secondary = Color(0xFFFFE24B);
   static const Color accent = Color(0xFFb0c7ff);

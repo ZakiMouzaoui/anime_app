@@ -1,6 +1,8 @@
+import 'package:anime_app/features/anime/screens/details/anime_details.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 
 import '../../../../../utils/constants/colors.dart';
 
@@ -23,17 +25,32 @@ class AnimeRecommendationEntry extends StatelessWidget {
         SizedBox(
           height: 8.h,
         ),
-        Container(
-          decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(5),
-              image: DecorationImage(
-                  image: CachedNetworkImageProvider(
-                      anime["images"]["webp"]
-                      ["large_image_url"]),
-                  fit: BoxFit.cover),
-              color: KColors.darkContainer),
-          width: 100.w,
-          height: 130.h,
+        Stack(
+          children: [
+            Container(
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(5),
+                  image: DecorationImage(
+                      image: CachedNetworkImageProvider(
+                          anime["images"]["webp"]
+                          ["large_image_url"]),
+                      fit: BoxFit.cover),
+                  color: KColors.darkContainer),
+              width: 100.w,
+              height: 130.h,
+            ),
+            Material(
+              color: Colors.transparent,
+              child: InkWell(
+                borderRadius: BorderRadius.circular(5),
+                onTap: ()=>Get.to(()=>AnimeDetails(animeTitle: anime["title"], animeId: anime["mal_id"])),
+                child: SizedBox(
+                  width: 100.w,
+                  height: 130.h,
+                ),
+              ),
+            )
+          ],
         ),
         SizedBox(
           height: 8.h,

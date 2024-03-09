@@ -16,7 +16,7 @@ class PieChartStat extends StatelessWidget {
 
     return Container(
       decoration: BoxDecoration(
-        color: KColors.darkContainer,
+        color: KColors.primary,
         borderRadius: BorderRadius.circular(2),
       ),
       padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 8.h),

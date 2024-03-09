@@ -6,6 +6,9 @@ import 'package:anime_app/features/anime/screens/details/detail_tab/widgets/anim
 import 'package:anime_app/features/anime/screens/details/detail_tab/widgets/anime_synopsis.dart';
 import 'package:anime_app/features/anime/screens/details/detail_tab/widgets/anime_trailer_thumbnail.dart';
 import 'package:anime_app/features/anime/screens/details/detail_tab/widgets/related_anime.dart';
+import 'package:anime_app/utils/constants/colors.dart';
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:cached_query_flutter/cached_query_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -18,23 +21,46 @@ class DetailsTab extends StatefulWidget {
   State<DetailsTab> createState() => _DetailsTabState();
 }
 
-class _DetailsTabState extends State<DetailsTab>
-    with AutomaticKeepAliveClientMixin {
+class _DetailsTabState extends State<DetailsTab>{
+
+  late final query = Query(key: "anime/${widget.animeId}", queryFn: ()=>ApiService.instance.get("anime/${widget.animeId}/full"));
+
   @override
   Widget build(BuildContext context) {
-    super.build(context);
-
-    return FutureBuilder(
-        future: ApiService.instance.get("anime/${widget.animeId}/full"),
-        builder: (_, snapshot) {
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return const Center(
-              child: KCircularProgressIndicator(),
-            );
-          }
-          final Map<String, dynamic> anime = snapshot.data!["data"];
-          return SingleChildScrollView(
-            child: Padding(
+    return QueryBuilder(
+        query: query,
+        builder: (_,state){
+      if(state.status == QueryStatus.initial || state.status == QueryStatus.loading){
+        return const Center(
+          child: KCircularProgressIndicator(),
+        );
+      }
+      final Map<String, dynamic> anime = state.data!["data"];
+      return SingleChildScrollView(
+        child: Stack(
+          children: [
+            Container(
+                height: 200.h,
+                decoration: BoxDecoration(
+                    image: DecorationImage(
+                        image: CachedNetworkImageProvider(
+                            anime["images"]["jpg"]["image_url"]
+                        ),
+                        fit: BoxFit.fitWidth
+                    )
+                )
+            ),
+            Container(
+              height: 200.h,
+              width: double.infinity,
+              decoration: BoxDecoration(
+                gradient: LinearGradient(colors: [
+                  KColors.primary,
+                  KColors.primary.withOpacity(0.8)
+                ], begin: Alignment.bottomCenter, end: Alignment.topCenter),
+              ),
+            ),
+            Container(
               padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 16.h),
               child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -56,7 +82,7 @@ class _DetailsTabState extends State<DetailsTab>
 
                     if (anime["trailer"]["youtube_id"] != null)
 
-                      /// Trailer
+                    /// Trailer
                       AnimeTrailerThumbnail(anime: anime),
 
                     /// Related
@@ -71,10 +97,9 @@ class _DetailsTabState extends State<DetailsTab>
                     AnimeRecommendations(animeId: '${anime["mal_id"]}'),
                   ]),
             ),
-          );
-        });
+          ],
+        ),
+      );
+    });
   }
-
-  @override
-  bool get wantKeepAlive => true;
 }

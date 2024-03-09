@@ -35,8 +35,7 @@ class PopularCharacters extends StatelessWidget {
           }
           return Padding(
             padding: EdgeInsets.symmetric(horizontal: 2.w, vertical: 2.h),
-            child: AnimationLimiter(
-              child: GridView.builder(
+            child: GridView.builder(
                   itemCount: controller.characters.length,
                   controller: controller.scrollController,
                   padding: EdgeInsets.zero,
@@ -49,7 +48,6 @@ class PopularCharacters extends StatelessWidget {
                     final character = controller.characters[index];
                     return PopularCharacterCard(character: character).animate(value: 0.7).scale();
                   }),
-            ),
           );
         }),
       ),

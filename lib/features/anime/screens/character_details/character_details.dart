@@ -1,4 +1,5 @@
 import 'package:anime_app/common/widgets/kcircular_progress_indicator.dart';
+import 'package:anime_app/features/anime/screens/character_details/character_image_preview.dart';
 import 'package:anime_app/features/anime/screens/character_details/widgets/character_anime_list.dart';
 import 'package:anime_app/features/anime/screens/character_details/widgets/character_voice_actor_row.dart';
 import 'package:anime_app/features/controllers/characters/character_details_controller.dart';
@@ -48,16 +49,19 @@ class CharacterDetails extends StatelessWidget {
             padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 16.h),
             child: Column(
               children: [
-                Container(
-                  height: 180.h,
-                  width: 150.w,
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(20),
-                      image: DecorationImage(
-                          image: CachedNetworkImageProvider(
-                              controller.character["images"]["jpg"]["image_url"]),
-                          fit: BoxFit.cover),
-                      color: KColors.darkContainer),
+                InkWell(
+                  onTap: ()=>Get.to(()=>CharacterImagePreview(imgUrl: controller.character["images"]["jpg"]["image_url"])),
+                  child: Container(
+                    height: 180.h,
+                    width: 150.w,
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(20),
+                        image: DecorationImage(
+                            image: CachedNetworkImageProvider(
+                                controller.character["images"]["jpg"]["image_url"]),
+                            fit: BoxFit.cover),
+                        color: KColors.darkContainer),
+                  ),
                 ),
                 SizedBox(
                   height: 8.h,

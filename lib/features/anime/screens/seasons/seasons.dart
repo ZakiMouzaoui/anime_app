@@ -17,7 +17,7 @@ class Seasons extends StatefulWidget {
   State<Seasons> createState() => _SeasonsState();
 }
 
-class _SeasonsState extends State<Seasons> with SingleTickerProviderStateMixin{
+class _SeasonsState extends State<Seasons> with TickerProviderStateMixin{
   @override
   Widget build(BuildContext context) {
     final controller = Get.put(AnimeSeasonController());

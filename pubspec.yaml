@@ -19,10 +19,12 @@ dependencies:
   # Utils
   flutter_screenutil: ^5.9.0
   cached_network_image: ^3.3.1
-  http: ^1.2.0
+  http: ^0.13.6
   readmore: ^2.2.0
   pie_chart: ^5.4.0
   timeago: ^3.6.1
+  gallery_saver: ^2.3.2
+  cached_query_flutter: ^1.0.1
 
   # Animations
   flutter_staggered_animations: ^1.1.1

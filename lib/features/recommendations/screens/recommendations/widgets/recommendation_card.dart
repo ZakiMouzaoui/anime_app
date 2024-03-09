@@ -9,10 +9,12 @@ import '../../../../../utils/constants/colors.dart';
 
 
 class RecommendationCard extends StatelessWidget {
-  const RecommendationCard({super.key, required this.entry, this.showContent=true});
+  const RecommendationCard({super.key, required this.entry, this.showContent=true, this.showSplashEffect=true, this.showFullContent=false});
 
   final Map<String, dynamic> entry;
   final bool showContent;
+  final bool showSplashEffect;
+  final bool showFullContent;
 
   @override
   Widget build(BuildContext context) {
@@ -21,10 +23,10 @@ class RecommendationCard extends StatelessWidget {
 
     return InkWell(
         borderRadius: BorderRadius.circular(5),
-        onTap: ()=>Get.to(()=>RecommendationDetail(entry: entry)),
+        onTap: ()=>showFullContent ? null : Get.to(()=>RecommendationDetail(entry: entry)),
         child: Container(
           decoration: BoxDecoration(
-            color: KColors.darkContainer,
+            color: showSplashEffect ? KColors.darkContainer : null,
             borderRadius: BorderRadius.circular(5),
           ),
           padding:
@@ -41,7 +43,14 @@ class RecommendationCard extends StatelessWidget {
                 ],
               ),
               if(showContent)
-              Column(
+              if(showFullContent) Column(
+                children: [
+                  SizedBox(height: 8.h,),
+                  Text(entry["content"], style: const TextStyle(
+                      color: Colors.white70
+                  ),),
+                ],
+              ) else Column(
                 children: [
                   SizedBox(height: 8.h,),
                   Text(entry["content"], maxLines: 1, overflow: TextOverflow.ellipsis, style: const TextStyle(

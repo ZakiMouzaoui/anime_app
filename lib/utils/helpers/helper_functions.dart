@@ -1,4 +1,8 @@
-class KHelperFunctions{
+import 'package:flutter/services.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:gallery_saver/gallery_saver.dart';
+
+class KHelperFunctions {
   static String calculateAvgRating(Map<String, dynamic> ratingFrequencies) {
     double totalRatings = 0;
     double totalPoints = 0;
@@ -17,8 +21,8 @@ class KHelperFunctions{
     return scaledRating.toStringAsFixed(2);
   }
 
-  static String getAnimeStatus(String status){
-    switch(status){
+  static String getAnimeStatus(String status) {
+    switch (status) {
       case 'Finished Airing':
         return "finished";
       case 'Currently Airing':
@@ -41,6 +45,18 @@ class KHelperFunctions{
       return 'Fall ${date.year}';
     } else {
       return 'Winter ${date.year}';
+    }
+  }
+
+  static void saveImage(String url) async {
+    try {
+      final isSaved = await GallerySaver.saveImage(url);
+      if (isSaved != null) {
+        Fluttertoast.showToast(msg: "Image saved");
+        return;
+      }
+    } on PlatformException catch (_) {
+      //TODO
     }
   }
 }

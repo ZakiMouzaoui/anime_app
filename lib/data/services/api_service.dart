@@ -10,11 +10,16 @@ class ApiService extends GetxService {
   Future<dynamic> get(String endpoint) async {
     http.Response response;
 
-    do {
-      response = await http.get(Uri.parse('$baseUrl/$endpoint'),
-          headers: {"content-type": "application/json"});
-    } while (response.statusCode == 429 || response.statusCode == 500);
-    return json.decode(response.body);
+    try{
+      do {
+        response = await http.get(Uri.parse('$baseUrl/$endpoint'),
+            headers: {"content-type": "application/json"});
+      } while (response.statusCode == 429 || response.statusCode == 500);
+      return json.decode(response.body);
+    }
+    catch(e){
+      return null;
+    }
   }
 
   Future<dynamic> post(String endpoint, {Map<String, dynamic>? body}) async {

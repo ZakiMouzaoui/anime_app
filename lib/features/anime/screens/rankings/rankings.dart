@@ -16,7 +16,7 @@ class Rankings extends StatefulWidget {
   State<Rankings> createState() => _RankingsState();
 }
 
-class _RankingsState extends State<Rankings> with SingleTickerProviderStateMixin{
+class _RankingsState extends State<Rankings> with TickerProviderStateMixin{
   @override
   Widget build(BuildContext context) {
     final TabController tabController = TabController(length: 3, vsync: this);

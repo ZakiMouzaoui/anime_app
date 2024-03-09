@@ -45,5 +45,7 @@
 	<true/>
 	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>We need access to your photo library to save images locally on your device and provide you with the option to manage and share them within the app.</string>
 </dict>
 </plist>

@@ -1,9 +1,9 @@
 import 'package:anime_app/common/widgets/kcircular_progress_indicator.dart';
+import 'package:anime_app/features/profile/screens/user_details/user_details.dart';
 import 'package:anime_app/features/recommendations/controllers/recommendation_detail_controller.dart';
 import 'package:anime_app/features/recommendations/screens/recommendations/widgets/recommendation_card.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
@@ -51,12 +51,9 @@ class RecommendationDetail extends StatelessWidget {
                       favorites["characters"].length +
                       favorites["people"].length;
 
-                  return Animate(
-                    effects: const [
-                      ScaleEffect(duration: Duration(milliseconds: 50))
-                    ],
-                    child: InkWell(
+                  return InkWell(
                       onTap: () {},
+                      borderRadius: BorderRadius.circular(5),
                       child: Container(
                         decoration: BoxDecoration(
                           color: KColors.darkContainer,
@@ -72,13 +69,16 @@ class RecommendationDetail extends StatelessWidget {
                               children: [
                                 Row(
                                   children: [
-                                    CircleAvatar(
-                                      backgroundImage:
-                                          CachedNetworkImageProvider(user[
-                                                      'images']['jpg']
-                                                  ['image_url'] ??
-                                              'https://yourteachingmentor.com/wp-content/uploads/2020/12/istockphoto-1223671392-612x612-1.jpg'),
-                                      backgroundColor: KColors.darkContainer,
+                                    GestureDetector(
+                                      onTap: ()=>Get.to(()=>UserDetails(username: user['username'])),
+                                      child: CircleAvatar(
+                                        backgroundImage:
+                                            CachedNetworkImageProvider(user[
+                                                        'images']['jpg']
+                                                    ['image_url'] ??
+                                                'https://yourteachingmentor.com/wp-content/uploads/2020/12/istockphoto-1223671392-612x612-1.jpg'),
+                                        backgroundColor: KColors.darkContainer,
+                                      ),
                                     ),
                                     SizedBox(
                                       width: 8.w,
@@ -117,8 +117,7 @@ class RecommendationDetail extends StatelessWidget {
                             )
                           ],
                         ),
-                      ),
-                    ),
+                      )
                   );
                 })
           ],
