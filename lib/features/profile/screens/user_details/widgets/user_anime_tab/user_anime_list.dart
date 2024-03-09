@@ -2,6 +2,7 @@ import 'package:anime_app/data/services/api_service.dart';
 import 'package:anime_app/utils/constants/colors.dart';
 import 'package:cached_query_flutter/cached_query_flutter.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'anime_card_widget.dart';
@@ -16,7 +17,7 @@ class UserAnimeList extends StatelessWidget {
   Widget build(BuildContext context) {
     final query = Query(key: url, queryFn: ()=>ApiService.instance.get(url,
         headers: {
-          "X-MAL-CLIENT-ID": "389838c8fcd99e6c919c0835164c2e50"
+          "X-MAL-CLIENT-ID": dotenv.env["MAL_CLIENT_ID"]
         },
         base: "https://api.myanimelist.net/v2"));
 
