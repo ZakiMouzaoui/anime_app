@@ -23,7 +23,7 @@ dependencies:
   readmore: ^2.2.0
   pie_chart: ^5.4.0
   timeago: ^3.6.1
-  gallery_saver: ^2.3.2
+  image_gallery_saver: ^2.0.3
   cached_query_flutter: ^1.0.1
 
   # Animations

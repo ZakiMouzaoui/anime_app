@@ -1,6 +1,9 @@
-import 'package:flutter/services.dart';
+import 'dart:typed_data';
+
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:gallery_saver/gallery_saver.dart';
+import 'package:http/http.dart' as http;
+import 'package:image_gallery_saver/image_gallery_saver.dart';
+
 
 class KHelperFunctions {
   static String calculateAvgRating(Map<String, dynamic> ratingFrequencies) {
@@ -50,13 +53,14 @@ class KHelperFunctions {
 
   static void saveImage(String url) async {
     try {
-      final isSaved = await GallerySaver.saveImage(url);
-      if (isSaved != null) {
-        Fluttertoast.showToast(msg: "Image saved");
-        return;
-      }
-    } on PlatformException catch (_) {
-      //TODO
+      final response = await http.get(Uri.parse(url));
+      await ImageGallerySaver.saveImage(
+          Uint8List.fromList(response.bodyBytes),
+          quality: 60
+      );
+      Fluttertoast.showToast(msg: "Image saved");
+    } catch (e) {
+      Fluttertoast.showToast(msg: "Something went wrong");
     }
   }
 }

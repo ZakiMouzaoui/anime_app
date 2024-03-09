@@ -2,10 +2,11 @@ import 'package:anime_app/utils/helpers/helper_functions.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 
-class CharacterImagePreview extends StatelessWidget {
-  const CharacterImagePreview({super.key, required this.imgUrl});
+class ImagePreview extends StatelessWidget {
+  const ImagePreview({super.key, required this.imgUrl});
 
   final String imgUrl;
 
@@ -50,16 +51,6 @@ class CharacterImagePreview extends StatelessWidget {
                           constraints: const BoxConstraints(),
                           onPressed: Get.back,
                           icon: const Icon(Icons.arrow_back_rounded)),
-                      /*
-                      IconButton(
-                          style: IconButton.styleFrom(
-                              backgroundColor: Colors.black.withOpacity(0.4),
-                              padding: EdgeInsets.symmetric(
-                                  horizontal: 6.w, vertical: 6.h)),
-                          constraints: const BoxConstraints(),
-                          onPressed: () {},
-                          icon: const Icon(Icons.more_vert))
-                       */
                       PopupMenuButton(
                         constraints: BoxConstraints(
                           minWidth: 180.w

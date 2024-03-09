@@ -1,5 +1,5 @@
 import 'package:anime_app/common/widgets/kcircular_progress_indicator.dart';
-import 'package:anime_app/features/anime/screens/character_details/character_image_preview.dart';
+import 'package:anime_app/common/widgets/image_preview.dart';
 import 'package:anime_app/features/anime/screens/character_details/widgets/character_anime_list.dart';
 import 'package:anime_app/features/anime/screens/character_details/widgets/character_voice_actor_row.dart';
 import 'package:anime_app/features/controllers/characters/character_details_controller.dart';
@@ -50,7 +50,7 @@ class CharacterDetails extends StatelessWidget {
             child: Column(
               children: [
                 InkWell(
-                  onTap: ()=>Get.to(()=>CharacterImagePreview(imgUrl: controller.character["images"]["jpg"]["image_url"])),
+                  onTap: ()=>Get.to(()=>ImagePreview(imgUrl: controller.character["images"]["jpg"]["image_url"])),
                   child: Container(
                     height: 180.h,
                     width: 150.w,

@@ -7,13 +7,13 @@ import '../../utils/constants/api_constants.dart';
 class ApiService extends GetxService {
   static ApiService get instance => Get.find();
 
-  Future<dynamic> get(String endpoint) async {
+  Future<dynamic> get(String endpoint, {Map<String, dynamic>? headers, String? base=baseUrl}) async {
     http.Response response;
 
     try{
       do {
-        response = await http.get(Uri.parse('$baseUrl/$endpoint'),
-            headers: {"content-type": "application/json"});
+        response = await http.get(Uri.parse('$base/$endpoint'),
+            headers: {"content-type": "application/json", ...?headers});
       } while (response.statusCode == 429 || response.statusCode == 500);
       return json.decode(response.body);
     }

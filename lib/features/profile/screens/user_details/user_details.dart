@@ -1,3 +1,4 @@
+import 'package:anime_app/common/widgets/image_preview.dart';
 import 'package:anime_app/common/widgets/kcircular_progress_indicator.dart';
 import 'package:anime_app/data/services/api_service.dart';
 import 'package:anime_app/features/profile/screens/user_details/widgets/user_anime_tab/user_anime_tab.dart';
@@ -11,6 +12,7 @@ import 'package:cached_query_flutter/cached_query_flutter.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 
 class UserDetails extends StatefulWidget {
   const UserDetails({super.key, required this.username});
@@ -46,26 +48,28 @@ class _UserDetailsState extends State<UserDetails>
               final data = (state.data as Map<String, dynamic>)["data"];
 
               return NestedScrollView(
-                  headerSliverBuilder: (context, isInnerScrolled) => [
-                    SliverOverlapAbsorber(
-                      sliver: SliverSafeArea(
-                        sliver: SliverPersistentHeader(
-                          pinned: true,
-                          delegate: _HeaderDelegate(data, tabController: tabCtr),
-                        ),
+                headerSliverBuilder: (context, isInnerScrolled) => [
+                  SliverOverlapAbsorber(
+                    sliver: SliverSafeArea(
+                      sliver: SliverPersistentHeader(
+                        pinned: true,
+                        delegate: _HeaderDelegate(data, tabController: tabCtr),
                       ),
-                      handle: NestedScrollView.sliverOverlapAbsorberHandleFor(context),
                     ),
-                  ],
-                  body: TabBarView(
-                    controller: tabCtr,
-                    children: [
-                      UserStatsTab(stats: data["statistics"]["anime"]),
-                      UserAnimeTab(animeList: data["favorites"]['anime']),
-                      UserCharactersTab(characters: data["favorites"]['characters']),
-                      UserRecommendationsTab(username: data["username"]),
-                    ],
+                    handle: NestedScrollView.sliverOverlapAbsorberHandleFor(
+                        context),
                   ),
+                ],
+                body: TabBarView(
+                  controller: tabCtr,
+                  children: [
+                    UserStatsTab(stats: data["statistics"]["anime"]),
+                    UserAnimeTab(animeList: data["favorites"]['anime'], username: data["username"],),
+                    UserCharactersTab(
+                        characters: data["favorites"]['characters']),
+                    UserRecommendationsTab(username: data["username"]),
+                  ],
+                ),
               );
             }),
       ),
@@ -107,7 +111,8 @@ class _HeaderDelegate extends SliverPersistentHeaderDelegate {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         CachedNetworkImage(
-                          imageUrl: data["images"]["jpg"]["image_url"] ?? 'https://yourteachingmentor.com/wp-content/uploads/2020/12/istockphoto-1223671392-612x612-1.jpg',
+                          imageUrl: data["images"]["jpg"]["image_url"] ??
+                              'https://yourteachingmentor.com/wp-content/uploads/2020/12/istockphoto-1223671392-612x612-1.jpg',
                           height: 140.h,
                           width: size.width,
                           fit: BoxFit.fitWidth,
@@ -124,8 +129,11 @@ class _HeaderDelegate extends SliverPersistentHeaderDelegate {
                                 style: const TextStyle(
                                     fontSize: 20, fontWeight: FontWeight.w600),
                               ),
-                              if(data['about'] != null)Text(data["about"], maxLines: 2,),
-
+                              if (data['about'] != null)
+                                Text(
+                                  data["about"],
+                                  maxLines: 2,
+                                ),
                               SizedBox(
                                 height: 12.h,
                               ),
@@ -160,22 +168,28 @@ class _HeaderDelegate extends SliverPersistentHeaderDelegate {
                   Positioned(
                     top: 100.h,
                     left: 16.w,
-                    child: Stack(
-                      children: [
-                        CircleAvatar(
-                          backgroundImage: CachedNetworkImageProvider(
-                              data["images"]["jpg"]["image_url"] ?? 'https://yourteachingmentor.com/wp-content/uploads/2020/12/istockphoto-1223671392-612x612-1.jpg'),
-                          radius: 42,
-                        ),
-                        Container(
-                          height: 84.h,
-                          width: 84.w,
-                          decoration: BoxDecoration(
-                            shape: BoxShape.circle,
-                            border: Border.all(color: Colors.black, width: 3)
+                    child: GestureDetector(
+                      onTap: () => Get.to(() => ImagePreview(
+                          imgUrl: data["images"]["jpg"]["image_url"] ??
+                              'https://yourteachingmentor.com/wp-content/uploads/2020/12/istockphoto-1223671392-612x612-1.jpg')),
+                      child: Stack(
+                        children: [
+                          CircleAvatar(
+                            backgroundImage: CachedNetworkImageProvider(data[
+                                    "images"]["jpg"]["image_url"] ??
+                                'https://yourteachingmentor.com/wp-content/uploads/2020/12/istockphoto-1223671392-612x612-1.jpg'),
+                            radius: 42,
                           ),
-                        )
-                      ],
+                          Container(
+                            height: 84.h,
+                            width: 84.w,
+                            decoration: BoxDecoration(
+                                shape: BoxShape.circle,
+                                border:
+                                    Border.all(color: Colors.black, width: 3)),
+                          )
+                        ],
+                      ),
                     ),
                   ),
                 ],
@@ -239,7 +253,10 @@ class _HeaderDelegate extends SliverPersistentHeaderDelegate {
   }
 
   @override
-  double get maxExtent =>baseExtent + (data["about"] != null ? 30.h : 0) + (data["joined"] != null ? 20.h : 0);
+  double get maxExtent =>
+      baseExtent +
+      (data["about"] != null ? 30.h : 0) +
+      (data["joined"] != null ? 20.h : 0);
 
   @override
   double get minExtent => 100.h;
