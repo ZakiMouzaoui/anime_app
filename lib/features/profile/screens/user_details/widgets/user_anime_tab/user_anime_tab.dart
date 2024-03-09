@@ -1,12 +1,7 @@
-import 'package:anime_app/features/anime/screens/details/anime_details.dart';
 import 'package:anime_app/features/profile/screens/user_details/widgets/user_anime_tab/user_anime_favorites.dart';
 import 'package:anime_app/features/profile/screens/user_details/widgets/user_anime_tab/user_anime_list.dart';
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:get/get.dart';
-
-import '../../../../../../utils/constants/colors.dart';
 
 
 class UserAnimeTab extends StatelessWidget {
